@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo</title>
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  <py-script src="./script.py"></py-script>
+
+<body>
+  <h1>
+    Demo
+  </h1>
+
+  <div class="inputs">
+    <input type="number" value="0" name="firstNum" id="firstNum" />
+    <label for="firstNum">Num 1</label>
+    <br />
+    <input type="number" value="0" name="secondNum" id="secondNum" />
+    <label for="secondNum">Num 2</label>
+    <br>
+    <button id="btn">Calculate</button>
+  </div>
+
+  <p id="result">
+    Result will be shown here
+  </p>
+
+  <script>
+    function createObject(object, variableName) {
+      let execString = variableName + " = object"
+      console.log("Running '" + execString + "'");
+      eval(execString)
+    }
+
+    const btn = document.querySelector("#btn")
+    const firstInput = document.getElementById("firstNum")
+    const secondInput = document.getElementById("secondNum")
+    const resultBox = document.getElementById("result")
+
+
+    btn.addEventListener("click", () => {
+      const firstNum = Number(firstInput.value)
+      const secondNum = Number(secondInput.value)
+
+      const func = pyodideGlobals.get("addTwoNumbers")
+      const result = func(firstNum, secondNum)
+
+      resultBox.innerText = `${firstNum} + ${secondNum} = ${result}`
+    })
+  </script>
+</body>
+
+</html>
